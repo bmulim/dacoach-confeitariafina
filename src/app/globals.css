@@ -111,7 +111,7 @@ h6 {
   background-size: 400% 400%;
   animation: gradientShift 12s ease infinite;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 @keyframes gradientShift {
