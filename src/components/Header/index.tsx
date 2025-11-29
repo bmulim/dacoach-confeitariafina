@@ -51,11 +51,22 @@ export default function Header() {
         alt="Logo"
         width={60}
         height={30}
-        className="sm:w-[100px] sm:h-[50px] w-[60px] h-[30px]"
+        className="sm:w-[100px] sm:h-[90px] w-[160px] h-[130px]"
         style={{ filter: "drop-shadow(0 2px 8px #D9A7BE55)" }}
       />
 
       {/* Desktop nav extracted to reusable Nav component (unstyled) */}
+      <div className="hidden sm:block pr-6">
+        <Nav
+          links={[
+            { href: "/", label: "Home" },
+            { href: "/about", label: "About" },
+            { href: "/contact", label: "Contact" },
+          ]}
+          listClassName="flex gap-6 items-center nav-reset"
+          linkClassName="font-title text-lg text-black hover:text-[var(--color-secondary)] transition-colors duration-200"
+        />
+      </div>
       <div className="sm:hidden">
         <MobileButton
           open={open}
@@ -77,7 +88,7 @@ export default function Header() {
             { href: "/contact", label: "Contact" },
           ]}
           listClassName="flex flex-col gap-3 nav-reset"
-          linkClassName="block font-title font-semibold text-base text-[var(--color-primary)]"
+          linkClassName="block font-title font-semibold text-base"
           onLinkClick={() => setOpen(false)}
         />
       </MobileDropdown>
