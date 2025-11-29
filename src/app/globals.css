@@ -1,26 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant:wght@400;700&family=Montserrat:wght@400;700&display=swap');
 @import "tailwindcss";
 
+/* Animação fade-in delicada para o header */
+.animate-fade-in {
+  animation: fadeInHeader 1.2s cubic-bezier(.39, .58, .57, 1) both;
+}
+
+@keyframes fadeInHeader {
+  0% {
+    opacity: 0;
+    transform: translateY(-24px) scale(0.98);
+    filter: blur(2px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #F2F0E4;
+  /* Fundo principal */
+  --foreground: #A68D8D;
+  /* Texto principal */
+  --color-primary: #D9A7BE;
+  /* Lilás elegante - CTA */
+  --color-secondary: #BF99A0;
+  /* Rosa suave - detalhes */
+  --color-support: #D9D7CC;
+  /* Fundo secundário */
+  --color-text: #A68D8D;
+  /* Texto principal */
+  --font-cormorant: 'Cormorant', serif;
+  --font-montserrat: 'Montserrat', sans-serif;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --color-primary: var(--color-primary);
+  --color-secondary: var(--color-secondary);
+  --color-support: var(--color-support);
+  --color-text: var(--color-text);
+  --font-sans: var(--font-montserrat);
+  --font-title: var(--font-cormorant);
   --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #D9D7CC;
+    /* Fundo escuro: tom suave da paleta */
+    --foreground: #A68D8D;
+    /* Texto escuro: tom da paleta */
+    --color-primary: #BF99A0;
+    --color-secondary: #D9A7BE;
+    --color-support: #A68D8D;
+    --color-text: #A68D8D;
   }
 }
 
 body {
   background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--color-text);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Títulos com Cormorant */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-title), serif;
+}
+
+/* Botões principais (CTA) */
+.btn-primary {
+  background: var(--color-primary);
+  color: var(--color-support);
+  border: none;
+  border-radius: 6px;
+  padding: 0.5em 1.5em;
+  font-family: var(--font-title), serif;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-primary:hover {
+  background: var(--color-secondary);
+}
+
+/* Detalhes decorativos */
+.detail {
+  color: var(--color-secondary);
+}
+
+/* Fundo secundário */
+.bg-support {
+  background: var(--color-support);
+}
+
+/* Animated header gradient using project palette */
+.header-animated-bg {
+  background: linear-gradient(120deg, var(--color-primary), var(--color-secondary), var(--background), var(--foreground));
+  background-size: 400% 400%;
+  animation: gradientShift 12s ease infinite;
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Subtle overlay to keep header content readable */
+.header-animated-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.06));
+  pointer-events: none;
+  border-radius: inherit;
 }
