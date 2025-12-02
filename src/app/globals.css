@@ -21,18 +21,35 @@
 }
 
 :root {
-  --background: #F2F0E4;
-  /* Fundo principal */
-  --foreground: #A68D8D;
-  /* Texto principal */
-  --color-primary: #D9A7BE;
-  /* Lilás elegante - CTA */
-  --color-secondary: #BF99A0;
-  /* Rosa suave - detalhes */
-  --color-support: #D9D7CC;
+  --background: #F8F6F0;
+  /* Fundo principal - bege claro mais neutro */
+  --background-alt: #EBE8DD;
   /* Fundo secundário */
-  --color-text: #A68D8D;
-  /* Texto principal */
+  --foreground: #4A3F3A;
+  /* Texto principal - marrom escuro */
+  --color-primary: #8B6F7A;
+  /* Rosé escuro mais sóbrio - CTA */
+  --color-secondary: #A89080;
+  /* Bege rosado suave - detalhes */
+  --color-accent: #C4A89D;
+  /* Accent claro para destaques */
+  --color-support: #D5CFC5;
+  /* Fundo secundário */
+  --color-border: #C8BFB5;
+  /* Bordas sutis */
+
+  /* Tons escuros para contraste */
+  --color-ink: #2B2520;
+  /* tom escuro neutro */
+  --color-foreground-dark: #5A4842;
+  /* versão mais escura do foreground */
+  --color-primary-dark: #6D5563;
+  --color-secondary-dark: #7A6558;
+  --color-muted: #918376;
+  /* texto secundário */
+
+  --color-text: var(--color-ink);
+  /* Texto principal (usa tom escuro por padrão) */
   --font-cormorant: 'Cormorant', serif;
   --font-montserrat: 'Montserrat', sans-serif;
 }
@@ -66,6 +83,9 @@ body {
   background: var(--background);
   color: var(--color-text);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Títulos com Cormorant */
@@ -76,23 +96,47 @@ h4,
 h5,
 h6 {
   font-family: var(--font-title), serif;
+  color: var(--color-ink);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+/* Melhorias de tipografia */
+p {
+  color: var(--color-foreground-dark);
+  line-height: 1.7;
+}
+
+/* Links */
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--color-primary-dark);
 }
 
 /* Botões principais (CTA) */
 .btn-primary {
   background: var(--color-primary);
-  color: var(--color-support);
+  color: #FFFFFF;
   border: none;
-  border-radius: 6px;
-  padding: 0.5em 1.5em;
+  border-radius: 8px;
+  padding: 0.65em 1.75em;
   font-family: var(--font-title), serif;
-  font-size: 1.1em;
+  font-size: 1.05em;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .btn-primary:hover {
-  background: var(--color-secondary);
+  background: var(--color-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
 /* Detalhes decorativos */
@@ -107,9 +151,9 @@ h6 {
 
 /* Animated header gradient using project palette */
 .header-animated-bg {
-  background: linear-gradient(120deg, var(--color-primary), var(--color-secondary), var(--background), var(--foreground));
+  background: linear-gradient(120deg, rgba(139, 111, 122, 0.12), rgba(168, 144, 128, 0.08), rgba(196, 168, 157, 0.15), rgba(213, 207, 197, 0.1));
   background-size: 400% 400%;
-  animation: gradientShift 12s ease infinite;
+  animation: gradientShift 14s ease infinite;
   position: relative;
   overflow: visible;
 }
@@ -133,7 +177,52 @@ h6 {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.06));
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.3));
   pointer-events: none;
   border-radius: inherit;
+}
+
+/* Utility classes */
+.section-spacing {
+  padding: 3rem 0;
+}
+
+@media (min-width: 768px) {
+  .section-spacing {
+    padding: 4rem 0;
+  }
+}
+
+/* Card hover effects */
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* Input styles */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea {
+  border: 1.5px solid var(--color-border);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  color: var(--color-ink);
+  background: white;
+  transition: all 0.2s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(139, 111, 122, 0.1);
 }

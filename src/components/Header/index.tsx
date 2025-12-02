@@ -1,11 +1,11 @@
 "use client";
 
-import Nav from "../Nav";
+import Nav from "./Nav";
 import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
-import Logo from "../Logo";
-import MobileButton from "../MobileButton";
-import MobileDropdown from "../MobileDropdown";
+import Logo from "./Logo";
+import MobileButton from "./MobileButton";
+import MobileDropdown from "./MobileDropdown";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -37,10 +37,11 @@ export default function Header() {
 
   return (
     <motion.header
-      className="flex items-center justify-between mt-8 mb-6 mx-4 sm:mx-auto max-w-[1100px] px-4 sm:px-8 py-1 sm:py-2 gap-6 sm:gap-0 rounded-2xl shadow-md header-animated-bg backdrop-blur-sm border border-[var(--color-support)]"
+      className="flex items-center justify-between mt-4 mb-3 mx-4 sm:mx-auto max-w-[1100px] px-4 sm:px-8 py-1 sm:py-2 gap-6 sm:gap-0 rounded-2xl shadow-lg header-animated-bg backdrop-blur-sm border border-[var(--color-border)]"
       style={{
-        borderColor: "var(--color-support)",
-        boxShadow: "4px 10px 32px -8px #D9A7BE22, 8px 0 24px -12px #BF99A022",
+        borderColor: "var(--color-border)",
+        boxShadow:
+          "0 4px 20px rgba(139, 111, 122, 0.15), 0 2px 8px rgba(0, 0, 0, 0.08)",
       }}
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -59,12 +60,13 @@ export default function Header() {
       <div className="hidden sm:block pr-6">
         <Nav
           links={[
-            { href: "/", label: "Home" },
-            { href: "/about", label: "About" },
-            { href: "/contact", label: "Contact" },
+            { href: "/", label: "Início" },
+            { href: "/products", label: "Produtos" },
+            { href: "/about", label: "Sobre" },
+            { href: "/contact", label: "Contato" },
           ]}
           listClassName="flex gap-6 items-center nav-reset"
-          linkClassName="font-title text-lg text-black hover:text-[var(--color-secondary)] transition-colors duration-200"
+          linkClassName="font-title text-lg text-[var(--color-ink)] hover:text-[var(--color-primary)] transition-colors duration-200"
         />
       </div>
       <div className="sm:hidden">
@@ -83,9 +85,10 @@ export default function Header() {
       >
         <Nav
           links={[
-            { href: "/", label: "Home" },
-            { href: "/about", label: "About" },
-            { href: "/contact", label: "Contact" },
+            { href: "/", label: "Início" },
+            { href: "/products", label: "Produtos" },
+            { href: "/about", label: "Sobre" },
+            { href: "/contact", label: "Contato" },
           ]}
           listClassName="flex flex-col gap-3 nav-reset"
           linkClassName="block font-title font-semibold text-base"
