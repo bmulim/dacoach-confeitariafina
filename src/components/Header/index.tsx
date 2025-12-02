@@ -37,11 +37,10 @@ export default function Header() {
 
   return (
     <motion.header
-      className="flex items-center justify-between mt-4 mb-3 mx-4 sm:mx-auto max-w-[1100px] px-4 sm:px-8 py-1 sm:py-2 gap-6 sm:gap-0 rounded-2xl shadow-lg header-animated-bg backdrop-blur-sm border border-[var(--color-border)]"
+      className="flex items-center justify-between mt-4 mb-3 mx-4 sm:mx-auto max-w-[1100px] px-4 sm:px-8 py-3 sm:py-4 gap-6 sm:gap-0 rounded-2xl shadow-xl header-animated-bg backdrop-blur-md border-2 border-white/60"
       style={{
-        borderColor: "var(--color-border)",
         boxShadow:
-          "0 4px 20px rgba(139, 111, 122, 0.15), 0 2px 8px rgba(0, 0, 0, 0.08)",
+          "0 8px 32px rgba(139, 111, 122, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06)",
       }}
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -66,7 +65,7 @@ export default function Header() {
             { href: "/contact", label: "Contato" },
           ]}
           listClassName="flex gap-6 items-center nav-reset"
-          linkClassName="font-title text-lg text-[var(--color-ink)] hover:text-[var(--color-primary)] transition-colors duration-200"
+          linkClassName="font-title text-lg font-semibold text-[var(--color-ink)] hover:text-[var(--color-primary)] transition-colors duration-200 drop-shadow-sm"
         />
       </div>
       <div className="sm:hidden">

@@ -151,9 +151,13 @@ a:hover {
 
 /* Animated header gradient using project palette */
 .header-animated-bg {
-  background: linear-gradient(120deg, rgba(139, 111, 122, 0.12), rgba(168, 144, 128, 0.08), rgba(196, 168, 157, 0.15), rgba(213, 207, 197, 0.1));
-  background-size: 400% 400%;
-  animation: gradientShift 14s ease infinite;
+  background: linear-gradient(120deg, 
+    rgba(248, 246, 240, 0.98), 
+    rgba(255, 255, 255, 0.95), 
+    rgba(248, 246, 240, 0.98)
+  );
+  background-size: 200% 200%;
+  animation: gradientShift 8s ease infinite;
   position: relative;
   overflow: visible;
 }
@@ -172,14 +176,15 @@ a:hover {
   }
 }
 
-/* Subtle overlay to keep header content readable */
+/* Subtle overlay to improve readability */
 .header-animated-bg::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.3));
+  background: rgba(255, 255, 255, 0.5);
   pointer-events: none;
   border-radius: inherit;
+  z-index: -1;
 }
 
 /* Utility classes */
