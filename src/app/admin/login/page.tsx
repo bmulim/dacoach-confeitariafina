@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -20,7 +21,8 @@ export default function AdminLoginPage() {
 
     // Simple authentication (in production, use proper backend authentication)
     const adminUsername = process.env.NEXT_PUBLIC_ADMIN_USERNAME || "admin";
-    const adminPassword = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || "dacoach2025";
+    const adminPassword =
+      process.env.NEXT_PUBLIC_ADMIN_PASSWORD || "dacoach2025";
 
     setTimeout(() => {
       if (
@@ -43,7 +45,10 @@ export default function AdminLoginPage() {
       {/* Animated Background similar to header */}
       <div className="absolute inset-0 -z-10 opacity-40">
         <div className="absolute top-20 left-20 w-72 h-72 bg-[var(--color-primary)]/15 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-20 right-20 w-96 h-96 bg-[var(--color-secondary)]/15 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+        <div
+          className="absolute bottom-20 right-20 w-96 h-96 bg-[var(--color-secondary)]/15 rounded-full blur-3xl animate-pulse"
+          style={{ animationDelay: "1s" }}
+        />
       </div>
 
       <motion.div
@@ -276,7 +281,7 @@ export default function AdminLoginPage() {
           transition={{ duration: 0.6, delay: 0.6 }}
           className="text-center mt-8"
         >
-          <a
+          <Link
             href="/"
             className="text-[var(--color-primary)] hover:text-[var(--color-secondary)] transition-colors font-title inline-flex items-center gap-2 bg-white/50 px-6 py-3 rounded-full hover:bg-white/80 backdrop-blur-sm"
           >
@@ -294,7 +299,7 @@ export default function AdminLoginPage() {
               />
             </svg>
             Voltar para o site
-          </a>
+          </Link>
         </motion.div>
       </motion.div>
     </main>

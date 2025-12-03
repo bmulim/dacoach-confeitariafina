@@ -28,10 +28,10 @@ export default function AboutPage() {
       >
         <div className="relative h-[400px] rounded-3xl overflow-hidden shadow-2xl">
           <Image
-            src="/images/trad1.svg"
+            src="/logo.svg"
             alt="daCoach Confeitaria"
             fill
-            className="object-cover"
+            className="object-contain p-8"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-primary)]/30 to-transparent" />
         </div>

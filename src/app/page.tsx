@@ -6,25 +6,25 @@ export default function HomePage() {
     {
       title: "Doces Fit",
       text: "Sobremesas com ingredientes mais leves, baixo açúcar e muita delicadeza — ideais para quem quer sabor sem culpa.",
-      imgSrc: "/images/fit1.svg",
+      imgSrc: "/images/ChatGPT Image 1 de dez. de 2025, 23_29_25.png",
       imgAlt: "Doces fit",
     },
     {
       title: "Confeitaria Tradicional",
       text: "Receitas clássicas e requintadas, bolos e tortas preparados com técnica e carinho para ocasiões especiais.",
-      imgSrc: "/images/trad1.svg",
+      imgSrc: "/images/c788f967-8d95-422b-9603-24e560df3546.png",
       imgAlt: "Confeitaria tradicional",
     },
     {
       title: "Mini Delícias",
       text: "Pequenas porções para eventos, mesas de festa ou para a sua degustação pessoal — perfeitas para provar um pouco de tudo.",
-      imgSrc: "/images/mini1.svg",
+      imgSrc: "/images/ChatGPT Image 1 de dez. de 2025, 23_24_45.png",
       imgAlt: "Mini delícias",
     },
     {
       title: "Comidas Saudáveis",
       text: "Opções saborosas e nutritivas, preparadas com ingredientes frescos e equilibrados — perfeitas para quem busca bem-estar sem abrir mão do sabor.",
-      imgSrc: "/images/fit1.svg",
+      imgSrc: "/images/ChatGPT Image 2 de dez. de 2025, 17_50_27.png",
       imgAlt: "Comidas saudáveis",
     },
   ];
@@ -41,7 +41,7 @@ export default function HomePage() {
         title="Confeitaria Fina"
         description={`Confeitaria artesanal com atenção ao detalhe — opções fit e tradicionais pensadas para ocasiões especiais ou para o dia a dia. Sabores delicados, acabamentos elegantes.`}
         ctaLabel="Peça um orçamento"
-        imgSrc="/images/trad1.svg"
+        imgSrc="/images/ChatGPT Image 1 de dez. de 2025, 23_31_55.png"
         imgClassName="right-4 top-4 opacity-80 hidden sm:block w-40 h-28"
         className="header-animated-bg rounded-2xl p-6 sm:p-10 relative overflow-visible shadow-lg border border-[var(--color-border)]"
         titleClassName="text-3xl sm:text-4xl font-title text-[var(--color-ink)]"

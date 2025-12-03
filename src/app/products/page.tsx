@@ -4,7 +4,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import ProductCard from "@/components/ProductCard";
 import ProductModal from "@/components/ProductModal";
-import { getProducts, getCategories, type Product, type Category } from "@/lib/store";
+import {
+  getProducts,
+  getCategories,
+  type Product,
+  type Category,
+} from "@/lib/store";
 
 export default function ProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -95,24 +100,3 @@ export default function ProductsPage() {
     </main>
   );
 }
-      {/* Tabs */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-        className="flex flex-wrap justify-center gap-4 mb-10"
-      >
-        {categories.map((category) => (
-          <button
-            key={category.id}
-            onClick={() => setActiveTab(category.id)}
-            className={`px-8 py-3 rounded-xl font-title text-lg transition-all duration-300 ${
-              activeTab === category.id
-                ? "bg-[var(--color-primary)] text-white shadow-lg transform scale-105"
-                : "bg-[var(--color-support)] text-[var(--color-foreground-dark)] hover:bg-[var(--color-primary)]/20"
-            }`}
-          >
-            {category.emoji} {category.name}
-          </button>
-        ))}
-      </motion.div>

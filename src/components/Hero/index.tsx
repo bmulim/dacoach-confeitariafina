@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import Modal from "../Modal";
 
 export interface HeroProps {
@@ -106,14 +107,14 @@ export default function Hero({
                 </Modal>
               </>
             ) : ctaHref ? (
-              <a
+              <Link
                 href={ctaHref}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={ctaClassName}
               >
                 {ctaLabel}
-              </a>
+              </Link>
             ) : (
               <button className={ctaClassName} onClick={onCtaClick}>
                 {ctaLabel}

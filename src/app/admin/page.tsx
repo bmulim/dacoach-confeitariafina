@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import {
   getProducts,
@@ -33,6 +33,7 @@ export default function AdminPage() {
     saturday: "",
     sunday: "",
   });
+  const [isMounted, setIsMounted] = useState(false);
 
   // Product Form
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
@@ -50,12 +51,25 @@ export default function AdminPage() {
     emoji: "",
   });
 
+  // Logout handler (usando useCallback para evitar re-renders)
+  const handleLogout = useCallback(() => {
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("dacoach_admin_auth");
+      localStorage.removeItem("dacoach_admin_timestamp");
+      router.push("/admin/login");
+    }
+  }, [router]);
+
   // Load data
   useEffect(() => {
+    setIsMounted(true);
+
+    // Only run on client-side
+    if (typeof window === "undefined") return;
+
     // Check authentication
     const auth = localStorage.getItem("dacoach_admin_auth");
     const timestamp = localStorage.getItem("dacoach_admin_timestamp");
-    
     if (!auth || auth !== "true") {
       router.push("/admin/login");
       return;
@@ -65,7 +79,7 @@ export default function AdminPage() {
     if (timestamp) {
       const sessionAge = Date.now() - parseInt(timestamp);
       const twentyFourHours = 24 * 60 * 60 * 1000;
-      
+
       if (sessionAge > twentyFourHours) {
         handleLogout();
         return;
@@ -74,10 +88,19 @@ export default function AdminPage() {
 
     setIsAuthenticated(true);
     setLoading(false);
-    setProducts(getProducts());
-    setCategories(getCategories());
-    setBusinessHours(getBusinessHours());
-  }, [router]);
+
+    // Load data safely
+    try {
+      setProducts(getProducts());
+      setCategories(getCategories());
+      setBusinessHours(getBusinessHours());
+    } catch (error) {
+      console.error("Error loading data:", error);
+      setProducts([]);
+      setCategories([]);
+      setBusinessHours({ weekday: "", saturday: "", sunday: "" });
+    }
+  }, [router, handleLogout]);
 
   // Product handlers
   const handleProductSubmit = (e: React.FormEvent) => {
@@ -154,15 +177,8 @@ export default function AdminPage() {
     alert("Horário atualizado com sucesso!");
   };
 
-  // Logout handler
-  const handleLogout = () => {
-    localStorage.removeItem("dacoach_admin_auth");
-    localStorage.removeItem("dacoach_admin_timestamp");
-    router.push("/admin/login");
-  };
-
   // Loading state
-  if (loading) {
+  if (loading || !isMounted) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
@@ -197,6 +213,18 @@ export default function AdminPage() {
 
   return (
     <main className="max-w-[1400px] mx-auto px-4 py-8 sm:py-12">
+      {/* Header with Logout */}
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-3xl font-title text-[var(--color-primary)]">
+          Painel Administrativo
+        </h1>
+        <button
+          onClick={handleLogout}
+          className="px-6 py-2 bg-red-500 text-white rounded-xl font-title hover:bg-red-600 transition-colors"
+        >
+          Sair
+        </button>
+      </div>
 
       {/* Navigation Tabs */}
       <motion.div
@@ -283,11 +311,12 @@ export default function AdminPage() {
                     className="w-full px-4 py-3 rounded-xl border-2 border-[var(--color-support)] focus:border-[var(--color-primary)] outline-none transition-colors"
                   >
                     <option value="">Selecione uma categoria</option>
-                    {categories.map((cat) => (
-                      <option key={cat.id} value={cat.id}>
-                        {cat.emoji} {cat.name}
-                      </option>
-                    ))}
+                    {categories &&
+                      categories.map((cat) => (
+                        <option key={cat.id} value={cat.id}>
+                          {cat.emoji} {cat.name}
+                        </option>
+                      ))}
                   </select>
                 </div>
 
@@ -384,8 +413,10 @@ export default function AdminPage() {
                         </h3>
                         <p className="text-sm text-[var(--color-foreground-dark)] mb-2">
                           Categoria:{" "}
-                          {categories.find((c) => c.id === product.category)
-                            ?.name || product.category}
+                          {(categories &&
+                            categories.find((c) => c.id === product.category)
+                              ?.name) ||
+                            product.category}
                         </p>
                         <p className="text-sm text-[var(--color-foreground-dark)] line-clamp-2">
                           {product.description}
@@ -502,47 +533,48 @@ export default function AdminPage() {
             {/* Categories List */}
             <div className="space-y-4">
               <h2 className="text-2xl font-title text-[var(--color-ink)] mb-4">
-                Categorias Cadastradas ({categories.length})
+                Categorias Cadastradas ({categories?.length || 0})
               </h2>
               <div className="space-y-3">
-                {categories.map((category) => (
-                  <motion.div
-                    key={category.id}
-                    whileHover={{ scale: 1.02 }}
-                    className="bg-white rounded-2xl p-5 shadow-md hover:shadow-lg transition-all duration-300 flex justify-between items-center"
-                  >
-                    <div className="flex items-center gap-3">
-                      <span className="text-3xl">{category.emoji}</span>
-                      <div>
-                        <h3 className="text-lg font-title text-[var(--color-primary)]">
-                          {category.name}
-                        </h3>
-                        <p className="text-sm text-[var(--color-foreground-dark)]">
-                          ID: {category.id}
-                        </p>
-                      </div>
-                    </div>
-                    <button
-                      onClick={() => handleDeleteCategory(category.id)}
-                      className="p-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition-colors"
-                      title="Excluir"
+                {categories &&
+                  categories.map((category) => (
+                    <motion.div
+                      key={category.id}
+                      whileHover={{ scale: 1.02 }}
+                      className="bg-white rounded-2xl p-5 shadow-md hover:shadow-lg transition-all duration-300 flex justify-between items-center"
                     >
-                      <svg
-                        className="w-5 h-5"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
+                      <div className="flex items-center gap-3">
+                        <span className="text-3xl">{category.emoji}</span>
+                        <div>
+                          <h3 className="text-lg font-title text-[var(--color-primary)]">
+                            {category.name}
+                          </h3>
+                          <p className="text-sm text-[var(--color-foreground-dark)]">
+                            ID: {category.id}
+                          </p>
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => handleDeleteCategory(category.id)}
+                        className="p-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition-colors"
+                        title="Excluir"
                       >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                        />
-                      </svg>
-                    </button>
-                  </motion.div>
-                ))}
+                        <svg
+                          className="w-5 h-5"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                          />
+                        </svg>
+                      </button>
+                    </motion.div>
+                  ))}
               </div>
             </div>
           </div>
