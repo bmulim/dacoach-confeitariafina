@@ -37,7 +37,7 @@ export default function Header() {
 
   return (
     <motion.header
-      className="flex items-center justify-between mt-4 mb-3 mx-4 sm:mx-auto max-w-[1100px] px-4 sm:px-8 py-3 sm:py-4 gap-6 sm:gap-0 rounded-2xl shadow-xl header-animated-bg backdrop-blur-md border-2 border-white/60"
+      className="relative flex items-center justify-between mt-4 mb-3 mx-4 sm:mx-auto max-w-[1100px] px-4 sm:px-8 py-3 sm:py-4 gap-6 sm:gap-0 rounded-2xl shadow-xl header-animated-bg backdrop-blur-md border-2 border-white/60 z-50"
       style={{
         boxShadow:
           "0 8px 32px rgba(139, 111, 122, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06)",
@@ -79,7 +79,7 @@ export default function Header() {
 
       <MobileDropdown
         open={open}
-        className="absolute left-0 top-full mt-2 w-full z-50 rounded-lg bg-[var(--background)] border border-[var(--color-support)] p-4 shadow-lg"
+        className="absolute left-0 top-full mt-2 w-full z-[60] rounded-lg bg-[var(--background)] border border-[var(--color-support)] p-4 shadow-lg"
         menuRef={menuRef}
       >
         <Nav
